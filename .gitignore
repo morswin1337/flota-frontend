@@ -1,23 +1,34 @@
-.DS_Store
-node_modules
-/dist
+# Logs and logs
+logs/
+*.log
 
+# Dependency directories
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# local env files
+# Compiled files
+/dist/
+/.sass-cache/
+*.css
+*.js
+
+# Application files
 .env.local
-.env.*.local
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
 
 # Editor directories and files
-.idea
-.vscode
+.idea/
+.vscode/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.sw*
+
+# OS generated files
+.DS_Store
+Thumbs.db
