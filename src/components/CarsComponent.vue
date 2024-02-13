@@ -1,5 +1,22 @@
 <template>
   <div>
+    <!-- Search fields -->
+    <input type="text" v-model="searchMake" placeholder="Search by make">
+    <input type="text" v-model="searchModel" placeholder="Search by model">
+
+    <!-- Car list -->
+    <ul>
+      <li v-for="car in filteredCars" :key="car.id">
+        <div>Make: {{ car.make }}</div>
+        <div>Model: {{ car.model }}</div>
+        <div>Mileage: {{ car.mileage }}</div>
+        <div>UUID: {{ car.uuid }}</div>
+        <!-- Add other attributes here -->
+      </li>
+    </ul>
+  </div>
+
+  <div>
     <h2>ADD CAR</h2>
     <form @submit.prevent="addCar">
       <input v-model="newCar.make" placeholder="Make">
@@ -42,9 +59,25 @@ export default {
         make: '',
         model: '',
         mileage: 0
-      }
+      },
+      searchMake: '',
+      searchModel: ''
     };
   },
+  computed: {
+  filteredCars() {
+    // Check if both search fields are empty
+    if (!this.searchMake && !this.searchModel) {
+      return []; // Return an empty array if both fields are empty
+    }
+    // Existing filtering logic
+    return this.cars.filter(car => {
+      const matchesMake = this.searchMake ? car.make.toLowerCase().includes(this.searchMake.toLowerCase()) : true;
+      const matchesModel = this.searchModel ? car.model.toLowerCase().includes(this.searchModel.toLowerCase()) : true;
+      return matchesMake && matchesModel;
+    });
+  }
+},
   mounted() {
     this.fetchCars();
   },
